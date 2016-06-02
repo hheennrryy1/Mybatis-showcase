@@ -5,6 +5,16 @@
 
 <properties resource="jdbc.properties"></properties>
 
+<!-- 类型别名是为 Java 类型设置一个短的名字。它只和 XML 配置有关，存在的意义仅在于用来减少类完全限定名的冗余。 -->
+  <typeAliases>
+<!--   	<typeAlias type="com.henry.entity.Student" alias="Student"/> -->
+	<package name="com.henry.entity"/>
+  </typeAliases>
+  
+  <typeHandlers>
+  	<typeHandler handler="com.henry.TypeHandler.ExampleTypeHandler"/>
+  </typeHandlers>
+  
   <!-- 数据库配置信息 -->
   <environments default="development">
     <environment id="development">
