@@ -12,4 +12,8 @@ public interface StudentMapper {
 	public Student selectStudent(int id);
 	
 	public void deleteStudent(int id);
+	
+	public void insertStudent(Student student);
+	
+	public void updateStudent(Student student);
 }

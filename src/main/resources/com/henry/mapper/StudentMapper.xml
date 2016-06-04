@@ -2,11 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.henry.mapper.StudentMapper">
-	<select id="selectStudent" resultType="Student" parameterType="int">
-		select * from student where id = #{id}
-	</select> 
+	<resultMap type="Student" id="studentResult">
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="birthday" property="birth"/>
+	</resultMap>
+	
+<!--  	<select id="selectStudent" resultType="Student" parameterType="int"> --> 
+ 	<select id="selectStudent" resultMap="studentResult" parameterType="int">
+ 		<!-- select * from student where id = #{id} -->
+		select id, name, birthday as brith from student where id = #{id} 
+	</select>
 	
 	<delete id="deleteStudent" parameterType="int">
 		delete from student where id = #{id}
-	</delete> 
+	</delete>
+	
+	<insert id="insertStudent" parameterType="Student">
+		insert into student (id, name, birthday) values (#{id}, #{name}, #{birth})
+	</insert>
+	
+	<update id="updateStudent" parameterType="Student">
+	<!--
+	 		update student set name = #{name} where id = #{id}
+	 -->
+		update student 
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="birth != null">birthday = #{birth},</if>
+		</set>
+		where id = ${id}
+	</update>
 </mapper>

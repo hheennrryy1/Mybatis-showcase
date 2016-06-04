@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.henry.mapper.ScoreMapper">
+    <resultMap type="Score" id="ScoreResult">
+        <result column="subject" property="subject"/>
+        <result column="score" property="score"/>
+        <association property="student" javaType="Student">
+            <result column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+    
+	<select id="selectScore" resultMap="ScoreResult" parameterType="Score">
+		select st.id, st.name,sc.score, sc.subject 
+		from student st,score sc where
+		st.id = sc.student_id
+		<if test="student.id != null">
+			and sc.student_id = #{student.id}
+		</if>
+		<if test="subject != null">
+			and sc.subject = #{subject} 
+		</if> 
+	</select>
+</mapper>

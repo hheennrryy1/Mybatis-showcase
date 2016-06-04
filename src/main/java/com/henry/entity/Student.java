@@ -5,7 +5,7 @@ import java.util.Date;
 public class Student {
 	private int id;
 	private String name;
-	private Date birthday;
+	private Date birth;
 	public int getId() {
 		return id;
 	}
@@ -18,10 +18,10 @@ public class Student {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getBirthday() {
-		return birthday;
+	public Date getBirth() {
+		return birth;
 	}
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
+	public void setBirth(Date birth) {
+		this.birth = birth;
 	}
 }
