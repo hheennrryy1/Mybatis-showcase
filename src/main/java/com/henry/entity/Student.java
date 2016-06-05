@@ -1,11 +1,25 @@
 package com.henry.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Student {
 	private int id;
 	private String name;
 	private Date birth;
+	private List<Score> scores;
+	
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", name=" + name + ", birth=" + birth + ", scores=" + scores + "]";
+	}
+	public List<Score> getScores() {
+		return scores;
+	}
+	public void setScores(List<Score> scores) {
+		this.scores = scores;
+	}
+	
 	public int getId() {
 		return id;
 	}

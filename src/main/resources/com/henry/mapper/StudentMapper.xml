@@ -6,12 +6,34 @@
 		<result column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="birthday" property="birth"/>
+		<collection property="scores" ofType="Score">
+			<id column="s_id" property="id"/>
+			<result column="score" property="score"/>
+			<result column="subject" property="subject"/>
+		</collection>
 	</resultMap>
 	
 <!--  	<select id="selectStudent" resultType="Student" parameterType="int"> --> 
  	<select id="selectStudent" resultMap="studentResult" parameterType="int">
+		select st.id, st.name, st.birthday as brith, sc.s_id, sc.score,sc.subject
+		from student st, score sc 
+		where st.id = sc.student_id
+		and st.id = #{id}
+	</select>
+	
+ 	<select id="selectStudentByName" resultMap="studentResult" parameterType="Student">
+ 		<bind name="pattern" value="'%' + _parameter.getName() + '%'"/>
+		select id, name, birthday as brith from student where name like #{pattern} 
+	</select>
+	
+ 	<select id="queryStudent" resultMap="studentResult" parameterType="int">
  		<!-- select * from student where id = #{id} -->
-		select id, name, birthday as brith from student where id = #{id} 
+		select id, name, birthday as brith 
+		from student 
+		where id in 
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach> 
 	</select>
 	
 	<delete id="deleteStudent" parameterType="int">

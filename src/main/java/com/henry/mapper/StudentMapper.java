@@ -1,4 +1,6 @@
 package com.henry.mapper;
+import java.util.List;
+
 import com.henry.entity.Student;
 
 public interface StudentMapper {
@@ -10,6 +12,10 @@ public interface StudentMapper {
 	
 	//方法名要和xml中id相同
 	public Student selectStudent(int id);
+	
+	public List<Student> selectStudentByName(Student student);
+	
+	public List<Student> queryStudent(List<Integer> list);
 	
 	public void deleteStudent(int id);
 	

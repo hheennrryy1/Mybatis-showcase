@@ -6,6 +6,11 @@ public class Score {
 	private String subject;
 	private Student student;
 	
+	@Override
+	public String toString() {
+		return "Score [id=" + id + ", score=" + score + ", subject=" + subject + ", student=" + student + "]";
+	}
+	
 	public Student getStudent() {
 		return student;
 	}

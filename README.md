@@ -55,4 +55,23 @@ set 元素会动态前置 SET 关键字，同时也会消除无关的逗号，�
 	    </set>
 	  where id=#{id}
 	</update>
-
+###foreach
+	public List<Student> queryStudent(List<Integer> list);
+	
+	 	<select id="queryStudent" resultMap="studentResult" parameterType="int">
+			select id, name, birthday as brith 
+			from student 
+			where id in 
+			<foreach collection="list" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach> 
+		</select>
+###bind
+	<select id="selectStudentByName" resultMap="studentResult" parameterType="Student">
+		<bind name="pattern" value="'%' + _parameter.getName() + '%'"/>
+		select id, name, birthday as brith from student where name like #{pattern} 
+	</select>
+	
+	public List<Student> selectStudentByName(Student student);
+###一对多查询
+两个表的id字段名不能都为id，不然多的一方结果集只有一条

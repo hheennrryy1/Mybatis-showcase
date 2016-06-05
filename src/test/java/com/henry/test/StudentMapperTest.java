@@ -1,6 +1,8 @@
 package com.henry.test;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Ignore;
@@ -10,22 +12,56 @@ import com.henry.entity.Student;
 import com.henry.mapper.StudentMapper;
 import com.henry.util.MybatisUtil;
 
-public class StudentDaoTest {
+public class StudentMapperTest {
 	@Test
-	@Ignore
 	public void testSelect() {
 		SqlSession session = MybatisUtil.openSession(); //事务开始
 		try {
 			StudentMapper mapper = session.getMapper(StudentMapper.class);
 			int id = 1;
 			Student student = mapper.selectStudent(id);
-			System.out.println(student.getName());
+			System.out.println(student.getScores().size());
+			student.getScores().forEach(s -> System.out.println(s));
 		} catch(Exception e) {
 			e.printStackTrace();
 			session.rollback();
 		} finally {
 			session.close();
 		}
+	}
+	
+	@Test
+	@Ignore
+	public void testQuery() {
+		SqlSession session = MybatisUtil.openSession(); //事务开始
+		try {
+			StudentMapper mapper = session.getMapper(StudentMapper.class);
+			List<Student> students = mapper.queryStudent(Arrays.asList(1, 3, 4));
+			students.forEach(s -> System.out.println(s.getName()));
+		} catch(Exception e) {
+			e.printStackTrace();
+			session.rollback();
+		} finally {
+			session.close();
+		}
+	}
+	
+	@Test
+	@Ignore
+	public void testSelectByName() {
+		SqlSession session = MybatisUtil.openSession(); //事务开始
+		try {
+			StudentMapper mapper = session.getMapper(StudentMapper.class);
+			Student student = new Student();
+			student.setName("he");
+			List<Student> students = mapper.selectStudentByName(student);
+			System.out.println(students.size());
+		} catch(Exception e) {
+			e.printStackTrace();
+			session.rollback();
+		} finally {
+			session.close();
+		}		
 	}
 	
 	@Ignore
@@ -67,6 +103,7 @@ public class StudentDaoTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testUpdate() {
 		SqlSession session = MybatisUtil.openSession();//事务开始  
 		try {
