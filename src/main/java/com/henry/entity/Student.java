@@ -1,9 +1,10 @@
 package com.henry.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Student {
+public class Student implements Serializable {
 	private int id;
 	private String name;
 	private Date birth;

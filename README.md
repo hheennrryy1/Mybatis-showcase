@@ -75,3 +75,7 @@ set 元素会动态前置 SET 关键字，同时也会消除无关的逗号，�
 	public List<Student> selectStudentByName(Student student);
 ###一对多查询
 两个表的id字段名不能都为id，不然多的一方结果集只有一条
+###一级缓存
+当 Session flush 或 close 之后，该Session中的所有 Cache 就将清空。
+###二级缓存
+在mapper.xml加入<cache/>，可自定义存储源，如 Ehcache。

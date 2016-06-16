@@ -1,6 +1,8 @@
 package com.henry.entity;
 
-public class Score {
+import java.io.Serializable;
+
+public class Score implements Serializable {
 	private int id;
 	private int score;
 	private String subject;

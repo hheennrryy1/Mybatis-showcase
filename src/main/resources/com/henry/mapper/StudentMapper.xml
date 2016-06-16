@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.henry.mapper.StudentMapper">
+<!-- 开启二级缓存 -->
+<cache></cache>
 	<resultMap type="Student" id="studentResult">
 		<result column="id" property="id"/>
 		<result column="name" property="name"/>
@@ -14,13 +16,12 @@
 	</resultMap>
 	
 <!--  	<select id="selectStudent" resultType="Student" parameterType="int"> --> 
- 	<select id="selectStudent" resultMap="studentResult" parameterType="int">
+ 	<select id="selectStudent" resultMap="studentResult" parameterType="int" >
 		select st.id, st.name, st.birthday as brith, sc.s_id, sc.score,sc.subject
 		from student st, score sc 
 		where st.id = sc.student_id
 		and st.id = #{id}
 	</select>
-	
  	<select id="selectStudentByName" resultMap="studentResult" parameterType="Student">
  		<bind name="pattern" value="'%' + _parameter.getName() + '%'"/>
 		select id, name, birthday as brith from student where name like #{pattern} 

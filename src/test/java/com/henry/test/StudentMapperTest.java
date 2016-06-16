@@ -14,6 +14,7 @@ import com.henry.util.MybatisUtil;
 
 public class StudentMapperTest {
 	@Test
+	@Ignore
 	public void testSelect() {
 		SqlSession session = MybatisUtil.openSession(); //事务开始
 		try {
@@ -29,6 +30,20 @@ public class StudentMapperTest {
 			session.close();
 		}
 	}
+	
+	@Test
+	public void testCache() {
+		SqlSession session = MybatisUtil.openSession(); //事务开始
+		StudentMapper mapper = session.getMapper(StudentMapper.class);
+		mapper.selectStudent(1);
+		session.close();
+		
+		SqlSession session1 = MybatisUtil.openSession(); //事务开始
+		StudentMapper mapper1 = session1.getMapper(StudentMapper.class);
+		mapper1.selectStudent(1);
+		session1.close();
+	}
+	
 	
 	@Test
 	@Ignore
